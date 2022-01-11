@@ -6,7 +6,7 @@ const db = require('../../../db/db');
 const { requestDB } = require('../../../db');
 
 module.exports = async (req, res) => {
-    const { categoryid ,skill, email } = req.body;
+    const { categoryid, skill, email } = req.body;
     if (!skill || !email || !category_id) {
         return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
     }  
