@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
     const { categoryid ,skill, email } = req.body;
     if (!skill || !email || !category_id) {
         return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
-    } 
+    }  
     let client;
     try {
         client = await db.connect(req);
