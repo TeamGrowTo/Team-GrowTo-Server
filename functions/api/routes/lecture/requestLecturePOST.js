@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
     let client;
     try {
         client = await db.connect(req);
-        const requestlecture = await postDB.postrequestlecture(client, category_id ,skill, email);
+        const requestlecture = await postDB.postrequestlecture(client, categoryid ,skill, email);
         res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.COMPARE_REQUEST_SUCCESS, requestlecture));
     } catch (error) {
         functions.logger.error(`[ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`, `[CONTENT] ${error}`);
