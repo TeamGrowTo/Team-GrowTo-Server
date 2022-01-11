@@ -1,3 +1,3 @@
 module.exports = {
-    postDB: require('./request')
+    requestDB: require('./request')
   };
