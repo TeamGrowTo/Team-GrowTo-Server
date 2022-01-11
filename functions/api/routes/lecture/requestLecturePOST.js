@@ -3,7 +3,7 @@ const util = require('../../../lib/util');
 const statusCode = require('../../../constants/statusCode');
 const responseMessage = require('../../../constants/responseMessage');
 const db = require('../../../db/db');
-const { postDB } = require('../../../db');
+const { requestDB } = require('../../../db');
 
 module.exports = async (req, res) => {
     const { categoryid ,skill, email } = req.body;
@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
     let client;
     try {
         client = await db.connect(req);
-        const requestlecture = await postDB.postrequestlecture(client, categoryid ,skill, email);
+        const requestlecture = await requestDB.postInsertRequestLecture(client, categoryid ,skill, email);
         res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.COMPARE_REQUEST_SUCCESS, requestlecture));
     } catch (error) {
         functions.logger.error(`[ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`, `[CONTENT] ${error}`);
