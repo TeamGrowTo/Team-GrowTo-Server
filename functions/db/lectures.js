@@ -15,9 +15,21 @@ const getRankRequestLecture = async (client) => {
 };
 
 
+const getComparingRequestLecture= async(client) => {
+    const { rows } = await client.query(
+        `SELECT c.name,skill AS number FROM request
+            LEFT JOIN category c on c.id = request.category_id
+        GROUP BY  c.name,skill
+        HAVING COUNT(skill) >=3
+        ORDER BY number DESC
+        LIMIT 8;
+        `,
+       
+    );
+    return convertSnakeToCamel.keysToCamel(rows);
+};
 
-
-module.exports = {getRankRequestLecture, };
+module.exports = {getRankRequestLecture, getComparingRequestLecture };
 
 
 
