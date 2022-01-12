@@ -15,4 +15,7 @@ module.exports = {
   
     // 프로필 조회
     READ_PROFILE_SUCCESS: '프로필 조회 성공',
+
+    //비교요청 성공 
+    COMPARE_REQUEST_SUCCESS: '강의 비교요청 성공'
   };
