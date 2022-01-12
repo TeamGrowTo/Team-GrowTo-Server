@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-router.post('/', require('./requestLecturePOST'));
+router.post('/request', require('./requestLecturePOST'));
 
 module.exports = router;
