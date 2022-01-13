@@ -2,27 +2,24 @@ module.exports = {
   NULL_VALUE: '필요한 값이 없습니다',
   OUT_OF_VALUE: '파라미터 값이 잘못되었습니다',
 
-  // 회원가입
-  CREATED_USER: '회원 가입 성공',
-  DELETE_USER: '회원 탈퇴 성공',
-  ALREADY_EMAIL: '이미 사용중인 이메일입니다.',
+  // 개수 조회
+  READ_LECTURE_TOTAL_SUCCESS: '강의개수 조회 성공',
+  READ_REQUEST_TOTAL_SUCCESS: '강의비교요청 개수 조회 성공',
 
-  // 로그인
-  LOGIN_SUCCESS: '로그인 성공',
-  LOGIN_FAIL: '로그인 실패',
-  NO_USER: '존재하지 않는 회원입니다.',
-  MISS_MATCH_PW: '비밀번호가 맞지 않습니다.',
+  // 강의 비교
+  ADD_REQUEST_SUCCESS: '강의 비교요청 성공',
+  READ_REQUEST_RANK_SUCCESS: '비교요청 인기순위 조회 성공',
+  READ_COMPARE_SUCCESS: '비교 중인 강의 조회 성공',
 
-  // 총 개수
-  GET_LECTURE_TOTAL_SUCCESS: '총 강의개수 조회 성공',
-  
-  // 프로필 조회
-  READ_PROFILE_SUCCESS: '프로필 조회 성공',
-
-  //비교요청 성공 
-  COMPARE_REQUEST_SUCCESS: '강의 비교요청 성공',
-  COMPARE_REQUEST_RANK_SUCCESS: '비교요청 인기순위 불러오기 성공',
-
-  //정보 확인 성공 
+  // 정보 조회
   READ_CATEGORIES_SUCCESS: '분야 조회 성공',
+  READ_SKILLS_SUCCESS: '스킬 조회 성공',
+  READ_TAGS_SUCCESS: '태그 조회 성공',
+  READ_REASON_SUCCESS: '신고 사유 조회 성공',
+
+  // 특정 분야, 스킬의 강의 목록 조회
+  READ_LECTURES_SUCCESS: '강의 목록 조회 성공',
+
+  // 신고
+  ADD_REPORT_SUCCESS: '다른 강의정보 신고 성공',
 };
