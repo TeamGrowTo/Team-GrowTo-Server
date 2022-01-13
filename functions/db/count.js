@@ -3,10 +3,9 @@ const _ = require('lodash');
 const getLectureTotal = async (client) => {
   const { rowCount: totalNumber } = await client.query(
     `
-    SELECT COUNT(*) FROM "lecture"
+    SELECT * FROM "lecture"
     `,
   );
-
   return { totalNumber };
 };
 
