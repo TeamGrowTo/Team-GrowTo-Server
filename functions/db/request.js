@@ -26,4 +26,4 @@ const getRankRequestLecture = async (client) => {
   return convertSnakeToCamel.keysToCamel(rows);
 };
 
-module.exports = { postInsertRequestLecture, getRankRequestLecture };
+module.exports = { postInsertRequestLecture };

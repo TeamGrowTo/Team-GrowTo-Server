@@ -3,14 +3,14 @@ const util = require('../../../lib/util');
 const statusCode = require('../../../constants/statusCode');
 const responseMessage = require('../../../constants/responseMessage');
 const db = require('../../../db/db');
-const { requestDB } = require('../../../db');
+const { rankDB } = require('../../../db');
 
 module.exports = async (req, res) => {
   let client;
   try {
     client = await db.connect(req);
-    const rankrequestlecture = await requestDB.getRankRequestLecture(client);
-    res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_REQUEST_RANK_SUCCESS, rankrequestlecture));
+    const rankrequestLecture = await rankDB.getRankRequestLecture(client);
+    res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_REQUEST_RANK_SUCCESS, rankrequestLecture));
   } catch (error) {
     functions.logger.error(`[ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`, `[CONTENT] ${error}`);
     console.log(error);
