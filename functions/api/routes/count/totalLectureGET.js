@@ -3,14 +3,14 @@ const util = require('../../../lib/util');
 const statusCode = require('../../../constants/statusCode');
 const responseMessage = require('../../../constants/responseMessage');
 const db = require('../../../db/db');
-const { countDB } = require('../../../db');
+const { lectureDB } = require('../../../db');
 
 module.exports = async (req, res) => {
   let client;
   try {
     client = await db.connect(req);
-    const totalNumber = await countDB.getLectureTotal(client);
-    res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.GET_LECTURE_TOTAL_SUCCESS, totalNumber));
+    const totalNumber = await lectureDB.getLectureTotal(client);
+    res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_LECTURE_TOTAL_SUCCESS, totalNumber));
   } catch (error) {
     functions.logger.error(`[ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`, `[CONTENT] ${error}`);
     console.log(error);
