@@ -19,11 +19,13 @@
   - `main`에 직접적인 commit, push는 가급적 금지합니다
 - `develop` 브랜치<br>
 
-  - `develop` 브랜치에서 본인이름의 브랜치를 생성하여 작업합니다<br>
+  - 작업 전 issue를 작성합니다 <br>
+  - `develop` 브랜치에서 `issue-이슈넘버`의 이름으로 브랜치를 생성하여 작업합니다 (ex: `issue-10`)<br>
   - 계획한 모든 기능 구현 & 테스트 통과 시 `develop` 브랜치로 Pull Request를 작성합니다<br>
     (Pull Request는 PULL_REQUEST_TEMPLATE에 맞춰서 작성합니다)<br>
   - 팀원들에게 코드리뷰를 요청합니다 (리뷰 요청자 assign하기)<br>
   - 리뷰를 완료하면 `Merge Confirm`을 하고, conflict가 발생하면 해결 후 `develop`으로 merge합니다<br>
+  - 작업 완료된 브랜치는 삭제합니다 <br>
   - 새로운 작업을 할 때 `develop` 브랜치의 내용을 작업 브랜치로 pull 받아서 작업을 이어갑니다<br>
     `git pull origin develop`
 
@@ -118,11 +120,18 @@ ex)
 ┃ ┣ responseMessage.js
 ┃ ┣ statusCode.js
 ┣ 📂db
+┃ ┣ category.js
+┃ ┣ compare.js
 ┃ ┣ db.js
-┃ ┣ info.js
-┃ ┣ count.js
-┃ ┣ lectures.js
+┃ ┣ find.js
 ┃ ┣ index.js
+┃ ┣ lecture.js
+┃ ┣ rank.js
+┃ ┣ reason.js
+┃ ┣ report.js
+┃ ┣ request.js
+┃ ┣ skill.js
+┃ ┣ tag.js
 ┣ 📂lib
 ┃ ┣ util.js
 ┃ ┣ convertSnakeToCamel.js
