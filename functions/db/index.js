@@ -1,4 +1,5 @@
 module.exports = {
-    requestDB: require('./request'),
-    lectureDB: require('./lectures'),
-  };
+  requestDB: require('./request'),
+  lectureDB: require('./lectures'),
+  categoryDB: require('./category'),
+};
