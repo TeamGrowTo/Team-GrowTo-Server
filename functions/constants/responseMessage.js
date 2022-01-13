@@ -13,6 +13,9 @@ module.exports = {
   NO_USER: '존재하지 않는 회원입니다.',
   MISS_MATCH_PW: '비밀번호가 맞지 않습니다.',
 
+  // 총 개수
+  GET_LECTURE_TOTAL_SUCCESS: '총 강의개수 조회 성공',
+  
   // 프로필 조회
   READ_PROFILE_SUCCESS: '프로필 조회 성공',
 
