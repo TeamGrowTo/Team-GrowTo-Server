@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
   try {
     client = await db.connect(req);
     const requestlecture = await requestDB.postInsertRequestLecture(client, categoryId, skill, email);
-    res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.COMPARE_REQUEST_SUCCESS, requestlecture));
+    res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.ADD_REQUEST_SUCCESS, requestlecture));
   } catch (error) {
     functions.logger.error(`[ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`, `[CONTENT] ${error}`);
     console.log(error);
