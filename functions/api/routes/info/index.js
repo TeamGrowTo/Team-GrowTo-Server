@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-router.use('/lectures', require('./lectures'));
-router.use('/info', require('./info'));
+router.get('/categories', require('./getCategoriesGET'));
 
 module.exports = router;
