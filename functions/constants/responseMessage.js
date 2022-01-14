@@ -22,4 +22,8 @@ module.exports = {
 
   // 신고
   ADD_REPORT_SUCCESS: '다른 강의정보 신고 성공',
+
+  //태그
+  READ_TAG_SUCCESS: '태그정보 조회 성공',
+  READ_TAG_FAIL: '스킬에 맞는 태그 없음'
 };
