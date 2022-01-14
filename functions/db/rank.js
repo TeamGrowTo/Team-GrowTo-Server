@@ -5,7 +5,7 @@ const getRankRequestLecture = async (client) => {
         `
         SELECT c.name , skill ,number FROM ranking
         LEFT JOIN category c on c.id = ranking.category_id
-        LIMIT 8;
+        LIMIT 4;
         `,
     );
     return convertSnakeToCamel.keysToCamel(rows);
