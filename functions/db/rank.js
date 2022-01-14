@@ -5,6 +5,7 @@ const getRankRequestLecture = async (client) => {
         `
         SELECT c.name , skill ,number FROM ranking
         LEFT JOIN category c on c.id = ranking.category_id
+        ORDER BY number
         LIMIT 4;
         `,
     );
