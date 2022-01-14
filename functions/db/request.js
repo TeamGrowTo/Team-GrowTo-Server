@@ -13,4 +13,13 @@ const postInsertRequestLecture = async (client, categoryId, skill, email) => {
   return convertSnakeToCamel.keysToCamel(rows);
 };
 
-module.exports = { postInsertRequestLecture };
+const getRequestTotal = async (client) => {
+  const { rowCount: requestNumber } = await client.query(
+    `
+    SELECT * FROM "request"
+    `,
+  );
+  return { requestNumber };
+};
+
+module.exports = { postInsertRequestLecture, getRequestTotal };
