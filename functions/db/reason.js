@@ -1,3 +1,12 @@
 const convertSnakeToCamel = require('../lib/convertSnakeToCamel');
 
-module.exports = {};
+const getReasons = async (client) => {
+  const { rows } = await client.query(
+    `
+    SELECT * FROM "reason"
+    `,
+  );
+  return convertSnakeToCamel.keysToCamel(rows);
+};
+
+module.exports = { getReasons };
