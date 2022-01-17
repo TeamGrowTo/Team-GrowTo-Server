@@ -22,4 +22,7 @@ const getRequestTotal = async (client) => {
   return { requestNumber };
 };
 
-module.exports = { postInsertRequestLecture, getRequestTotal };
+module.exports = {
+  postInsertRequestLecture,
+  getRequestTotal,
+};
