@@ -17,6 +17,7 @@ module.exports = {
   READ_SKILLS_SUCCESS: '스킬 조회 성공',
   READ_TAGS_SUCCESS: '태그 조회 성공',
   READ_REASON_SUCCESS: '신고 사유 조회 성공',
+  READ_NO_TAGS: '해당하는 스킬에 태그가 없습니다.',
 
   // 특정 분야, 스킬의 강의 목록 조회
   READ_LECTURES_SUCCESS: '강의 목록 조회 성공',
