@@ -6,6 +6,7 @@ module.exports = {
   // 개수 조회
   READ_LECTURE_TOTAL_SUCCESS: '강의개수 조회 성공',
   READ_REQUEST_TOTAL_SUCCESS: '강의비교요청 개수 조회 성공',
+  READ_FIND_TOTAL_SUCCESS: '강의찾기 횟수 조회 성공',
 
   // 강의 비교
   ADD_REQUEST_SUCCESS: '강의 비교요청 성공',
