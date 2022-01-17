@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
     try {
         client = await db.connect(req);
         const skillTags = await tagDB.getSkillTags(client, skillId);
-        if (skillTags == 0) return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
+        if (skillTags.length === 0) return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.READ_NO_TAGS));
         res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_TAGS_SUCCESS, skillTags));
     } catch (error) {
         functions.logger.error(`[ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`, `[CONTENT] ${error}`);
