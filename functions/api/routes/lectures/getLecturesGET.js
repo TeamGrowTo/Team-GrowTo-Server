@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
         while (true) {
             if (lectures[i].id === lectures[i - 1].id) {
                 lectures[i - 1].tags.push(lectures[i].tagName);
-                lectures.splice(i);
+                lectures.splice(i, 1);
             } else {
                 lectures[i].tags = [lectures[i].tagName];
                 delete lectures[i].tagName;
@@ -41,7 +41,7 @@ module.exports = async (req, res) => {
         }
 
         if (!order.column) {
-            lectures.sort(lecture => lecture.tags.length)
+            lectures.sort(lecture => -lecture.tags.length)
         }
 
         res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_REQUEST_RANK_SUCCESS, lectures));
