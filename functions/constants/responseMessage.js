@@ -1,6 +1,7 @@
 module.exports = {
   NULL_VALUE: '필요한 값이 없습니다',
   OUT_OF_VALUE: '파라미터 값이 잘못되었습니다',
+  INTERNAL_SERVER_ERROR: "서버 내부 오류",
 
   // 개수 조회
   READ_LECTURE_TOTAL_SUCCESS: '강의개수 조회 성공',
@@ -23,7 +24,4 @@ module.exports = {
   // 신고
   ADD_REPORT_SUCCESS: '다른 강의정보 신고 성공',
 
-  //태그
-  READ_TAG_SUCCESS: '태그정보 조회 성공',
-  READ_TAG_FAIL: '스킬에 맞는 태그 없음'
 };
