@@ -39,6 +39,11 @@ module.exports = async (req, res) => {
                 break;
             }
         }
+
+        if (!order.column) {
+            lectures.sort(lecture => lecture.tags.length)
+        }
+
         res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_REQUEST_RANK_SUCCESS, lectures));
     } catch (error) {
         functions.logger.error(`[ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`, `[CONTENT] ${error}`);
