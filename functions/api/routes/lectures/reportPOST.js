@@ -8,7 +8,7 @@ const { reportDB } = require('../../../db');
 module.exports = async (req, res) => {
   const { reasonId, lecture, explanation, email } = req.body;
 
-  if (!reasonId || !lecture || !email) {
+  if (!reasonId || !lecture || !email || explanation === undefined) {
     return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
   }
 
