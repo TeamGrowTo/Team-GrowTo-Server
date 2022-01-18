@@ -3,7 +3,7 @@ const util = require('../../../lib/util');
 const statusCode = require('../../../constants/statusCode');
 const responseMessage = require('../../../constants/responseMessage');
 const db = require('../../../db/db');
-const { findDB, lectureDB } = require('../../../db');
+const { findDB, lectureDB, categoryDB, skillDB } = require('../../../db');
 
 module.exports = async (req, res) => {
     let client;
@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
         if (!searchParams) {
             return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.OUT_OF_VALUE));
         }
-        const lectures = await lectureDB.getLecturesFromIds(client, searchParams.categoryId, searchParams.skillId);
+        let lectures = await lectureDB.getLecturesFromIds(client, searchParams.categoryId, searchParams.skillId);
         let i = 1;
         lectures[0].tags = [lectures[0].tagName];
         delete lectures[0].tagName;
@@ -81,7 +81,12 @@ module.exports = async (req, res) => {
             delete lecture.tagScore;
         }
 
-        res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_RECOMMEND_SUCCESS, lecturesHasTags));
+        const category = await categoryDB.getCategory(client, searchParams.categoryId);
+        const skill = await skillDB.getSkill(client, searchParams.skillId);
+
+        lectures = lecturesHasTags;
+
+        res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_RECOMMEND_SUCCESS, { lectures, category, skill }));
     } catch (error) {
         functions.logger.error(`[ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`, `[CONTENT] ${error}`);
         console.log(error);

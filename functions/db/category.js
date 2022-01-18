@@ -11,4 +11,19 @@ const getAllCategories = async (client) => {
   return convertSnakeToCamel.keysToCamel(rows);
 };
 
-module.exports = { getAllCategories };
+const getCategory = async (client, id) => {
+  const { rows } = await client.query(
+    `
+    SELECT *
+    FROM category
+    WHERE id = $1
+    `,
+    [id]
+  );
+  return convertSnakeToCamel.keysToCamel(rows[0]);
+};
+
+module.exports = {
+  getAllCategories,
+  getCategory,
+};
