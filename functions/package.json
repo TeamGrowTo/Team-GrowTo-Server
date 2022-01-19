@@ -29,6 +29,7 @@
     "lodash": "^4.17.21",
     "nodemon": "^2.0.15",
     "pg": "^8.7.1",
+    "pg-format": "^1.0.4",
     "tools": "0.0.0"
   },
   "devDependencies": {
