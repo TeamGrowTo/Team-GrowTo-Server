@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
     const { categoryId, skillId } = req.params;
     let { ordering } = req.query;
 
-    if (ordering == undefined) {
+    if (ordering === undefined) {
         ordering = "default";
     }
     ordering = ordering.toLowerCase();
