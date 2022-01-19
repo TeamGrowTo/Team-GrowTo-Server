@@ -26,4 +26,6 @@ module.exports = {
   // 신고
   ADD_REPORT_SUCCESS: '다른 강의정보 신고 성공',
 
+  // 검색
+  ADD_SEARCH_SUCCESS: "검색 정보 저장 성공"
 };
