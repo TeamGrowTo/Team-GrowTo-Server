@@ -9,7 +9,6 @@ module.exports = async (req, res) => {
     let client;
     const { categoryId } = req.params;
     if (!categoryId) {
-        console.log(error);
         res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NULL_VALUE));
     }
 
