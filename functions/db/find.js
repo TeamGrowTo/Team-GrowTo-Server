@@ -12,8 +12,8 @@ const getFindTotal = async (client) => {
 const getSearchParams = async (client, findId) => {
   const { rows } = await client.query(
     `
-      SELECT * from "find"
-      WHERE id = $1
+    SELECT * from "find"
+    WHERE id = $1
     `,
     [findId]
   );
