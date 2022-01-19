@@ -9,4 +9,5 @@ module.exports = {
   requestDB: require('./request'),
   skillDB: require('./skill'),
   tagDB: require('./tag'),
+  orderingDB: require('./ordering'),
 };
