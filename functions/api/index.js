@@ -15,7 +15,7 @@ const app = express();
 
 // Cross-Origin Resource Sharing을 열어주는 미들웨어
 // https://evan-moon.github.io/2020/05/21/about-cors/ 에서 자세한 정보 확인
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(cors());
 
 //  보안을 위한 미들웨어들
 //  process.env.NODE_ENV는 배포된 서버에서는 'production'으로, 로컬에서 돌아가는 서버에서는 'development'로 고정됨.
