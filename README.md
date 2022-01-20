@@ -198,7 +198,9 @@ ex)
 
 ## 📐 ERD
 
-<img src="https://user-images.githubusercontent.com/49135797/149073419-9ed07cb6-c1de-4618-9494-0bfe1a9c525f.png" width="640" height="620"/>
+<img src="https://user-images.githubusercontent.com/86958131/150390315-153acc19-4856-47f5-90e3-f1007782ecc8.png" width="640" height="620"/>
+
+
 
 <br>
 
