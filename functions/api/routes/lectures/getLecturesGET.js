@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
     lectures[0].tags = [lectures[0].tagName];
     delete lectures[0].tagName;
 
-    for (;;) {
+    for (; ;) {
       if (lectures[i].id === lectures[i - 1].id) {
         lectures[i - 1].tags.push(lectures[i].tagName);
         lectures.splice(i, 1);
@@ -41,7 +41,7 @@ module.exports = async (req, res) => {
     }
 
     if (!order.column) {
-      lectures.sort((lecture) => -lecture.tags.length);
+      lectures.sort((lecture1, lecture2) => -(lecture1.tags.length - lecture2.tags.length));
     }
 
     res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_LECTURES_SUCCESS, lectures));

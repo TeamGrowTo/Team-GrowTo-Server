@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
     lectures[0].tags = [lectures[0].tagName];
     delete lectures[0].tagName;
 
-    for (;;) {
+    for (; ;) {
       if (lectures[i].id === lectures[i - 1].id) {
         lectures[i - 1].tags.push(lectures[i].tagName);
         lectures.splice(i, 1);
@@ -53,9 +53,9 @@ module.exports = async (req, res) => {
 
     if (searchParams.timeAsc !== null) {
       if (searchParams.timeAsc) {
-        lecturesHasTags.sort((lecture) => lecture.time - lecture.tagScore / 1000);
+        lecturesHasTags.sort((lecture1, lecture2) => (lecture1.time - lecture1.tagScore / 1000) - (lecture2.time - lecture2.tagScore / 1000));
       } else {
-        lecturesHasTags.sort((lecture) => -lecture.time - lecture.tagScore / 1000);
+        lecturesHasTags.sort((lecture1, lecture2) => (-lecture1.time - lecture1.tagScore / 1000) - (-lecture2.time - lecture2.tagScore / 1000));
       }
     }
 
@@ -65,16 +65,16 @@ module.exports = async (req, res) => {
 
     if (searchParams.priceAsc !== null) {
       if (searchParams.timeAsc) {
-        lecturesHasTags.sort((lecture) => lecture.price - lecture.tagScore / 1000);
+        lecturesHasTags.sort((lecture1, lecture2) => (lecture1.price - lecture1.tagScore / 1000) - (lecture2.price - lecture2.tagScore / 1000));
       } else {
-        lecturesHasTags.sort((lecture) => -lecture.price - lecture.tagScore / 1000);
+        lecturesHasTags.sort((lecture1, lecture2) => (-lecture1.price - lecture1.tagScore / 1000) - (-lecture2.price - lecture2.tagScore / 1000));
       }
     }
 
     for (let j = 0, k = 5; j < lecturesHasTags.length && k > 0; j++, k--) {
       lecturesHasTags[j].score += k;
     }
-    lecturesHasTags.sort((lecture) => -lecture.score - lecture.tagScore * 1000);
+    lecturesHasTags.sort((lecture1, lecture2) => (-lecture1.score - lecture1.tagScore * 1000) - (-lecture2.score - lecture2.tagScore * 1000));
     lecturesHasTags.slice(0, 3);
     for (let lecture of lecturesHasTags) {
       delete lecture.score;
