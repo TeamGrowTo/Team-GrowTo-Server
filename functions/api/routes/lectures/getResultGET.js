@@ -4,6 +4,7 @@ const statusCode = require('../../../constants/statusCode');
 const responseMessage = require('../../../constants/responseMessage');
 const db = require('../../../db/db');
 const { findDB, lectureDB, categoryDB, skillDB } = require('../../../db');
+const { slack } = require('../../../others/slack');
 
 module.exports = async (req, res) => {
   let client;
@@ -20,12 +21,12 @@ module.exports = async (req, res) => {
       lectures[idx].tags = [lectures[idx].tagName];
       delete lectures[idx].tagName;
       return lectures;
-    }
+    };
 
     lectures = await setTagList(lectures, 0);
     let i = 1;
 
-    for (; ;) {
+    for (;;) {
       if (lectures[i].id === lectures[i - 1].id) {
         await lectures[i - 1].tags.push(lectures[i].tagName);
         await lectures.splice(i, 1);
@@ -59,9 +60,9 @@ module.exports = async (req, res) => {
 
     if (searchParams.timeAsc !== null) {
       if (searchParams.timeAsc) {
-        lecturesHasTags.sort((lecture1, lecture2) => (lecture1.time - lecture1.tagScore / 1000) - (lecture2.time - lecture2.tagScore / 1000));
+        lecturesHasTags.sort((lecture1, lecture2) => lecture1.time - lecture1.tagScore / 1000 - (lecture2.time - lecture2.tagScore / 1000));
       } else {
-        lecturesHasTags.sort((lecture1, lecture2) => (-lecture1.time - lecture1.tagScore / 1000) - (-lecture2.time - lecture2.tagScore / 1000));
+        lecturesHasTags.sort((lecture1, lecture2) => -lecture1.time - lecture1.tagScore / 1000 - (-lecture2.time - lecture2.tagScore / 1000));
       }
     }
 
@@ -71,16 +72,16 @@ module.exports = async (req, res) => {
 
     if (searchParams.priceAsc !== null) {
       if (searchParams.timeAsc) {
-        lecturesHasTags.sort((lecture1, lecture2) => (lecture1.price - lecture1.tagScore / 1000) - (lecture2.price - lecture2.tagScore / 1000));
+        lecturesHasTags.sort((lecture1, lecture2) => lecture1.price - lecture1.tagScore / 1000 - (lecture2.price - lecture2.tagScore / 1000));
       } else {
-        lecturesHasTags.sort((lecture1, lecture2) => (-lecture1.price - lecture1.tagScore / 1000) - (-lecture2.price - lecture2.tagScore / 1000));
+        lecturesHasTags.sort((lecture1, lecture2) => -lecture1.price - lecture1.tagScore / 1000 - (-lecture2.price - lecture2.tagScore / 1000));
       }
     }
 
     for (let j = 0, k = 5; j < lecturesHasTags.length && k > 0; j++, k--) {
       lecturesHasTags[j].score += k;
     }
-    lecturesHasTags.sort((lecture1, lecture2) => (-lecture1.score - lecture1.tagScore * 1000) - (-lecture2.score - lecture2.tagScore * 1000));
+    lecturesHasTags.sort((lecture1, lecture2) => -lecture1.score - lecture1.tagScore * 1000 - (-lecture2.score - lecture2.tagScore * 1000));
     lecturesHasTags.slice(0, 3);
     for (let lecture of lecturesHasTags) {
       delete lecture.score;
@@ -94,6 +95,7 @@ module.exports = async (req, res) => {
 
     res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_RECOMMEND_SUCCESS, { lectures, category, skill }));
   } catch (error) {
+    slack(req, error);
     functions.logger.error(`[ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`, `[CONTENT] ${error}`);
     console.log(error);
     res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.INTERNAL_SERVER_ERROR));

@@ -4,6 +4,7 @@ const statusCode = require('../../../constants/statusCode');
 const responseMessage = require('../../../constants/responseMessage');
 const db = require('../../../db/db');
 const { requestDB } = require('../../../db');
+const { slack } = require('../../../others/slack');
 
 module.exports = async (req, res) => {
   const { categoryId, skill, email } = req.body;
@@ -16,6 +17,7 @@ module.exports = async (req, res) => {
     const requestLecture = await requestDB.postInsertRequestLecture(client, categoryId, skill, email);
     res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.ADD_REQUEST_SUCCESS, requestLecture));
   } catch (error) {
+    slack(req, error);
     functions.logger.error(`[ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`, `[CONTENT] ${error}`);
     console.log(error);
     res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.INTERNAL_SERVER_ERROR));
