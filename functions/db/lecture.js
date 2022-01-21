@@ -17,7 +17,7 @@ const getLecturesFromIds = async (client, categoryId, skillId) => {
     FROM lecture as l, tag_lecture as tl, tag as t, review_time as rt
     WHERE l.id = tl.lecture_id and tl.tag_id = t.id and l.review_time_id = rt.id
     AND l.category_id = $1 and l.skill_id = $2
-    ORDER BY l.name
+    ORDER BY l.id
     `,
     [categoryId, skillId]
   );
@@ -32,7 +32,7 @@ const getLectures = async (client, categoryId, skillId, order) => {
       FROM lecture as l, tag_lecture as tl, tag as t, review_time as rt
       WHERE l.id = tl.lecture_id and tl.tag_id = t.id and l.review_time_id = rt.id
       AND l.category_id = $1 and l.skill_id = $2
-      ORDER BY l.name
+      ORDER BY l.id
       `,
       [categoryId, skillId]
     );
@@ -47,7 +47,7 @@ const getLectures = async (client, categoryId, skillId, order) => {
       FROM lecture as l, tag_lecture as tl, tag as t, review_time as rt
       WHERE l.id = tl.lecture_id and tl.tag_id = t.id and l.review_time_id = rt.id
       AND l.category_id = %s and l.skill_id = %s
-      ORDER BY %I DESC, l.name
+      ORDER BY %I DESC, l.id
       `, categoryId, skillId, order.column
     )
     const { rows } = await client.query(sql);
@@ -59,7 +59,7 @@ const getLectures = async (client, categoryId, skillId, order) => {
       FROM lecture as l, tag_lecture as tl, tag as t, review_time as rt
       WHERE l.id = tl.lecture_id and tl.tag_id = t.id and l.review_time_id = rt.id
       AND l.category_id = %s and l.skill_id = %s
-      ORDER BY %I, l.name
+      ORDER BY %I, l.id
       `, categoryId, skillId, order.column
     )
     const { rows } = await client.query(sql);

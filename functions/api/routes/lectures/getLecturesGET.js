@@ -21,24 +21,39 @@ module.exports = async (req, res) => {
   try {
     client = await db.connect(req);
     const order = await orderingDB.getOrder(client, ordering);
-    const lectures = await lectureDB.getLectures(client, categoryId, skillId, order);
+    let lectures = await lectureDB.getLectures(client, categoryId, skillId, order);
+    const setTagList = async (lectures, idx) => {
+      lectures[idx].tags = [lectures[idx].tagName];
+      delete lectures[idx].tagName;
+      return lectures;
+    }
+    console.log(lectures);
+    lectures = await setTagList(lectures, 0);
     let i = 1;
-    lectures[0].tags = [lectures[0].tagName];
-    delete lectures[0].tagName;
 
     for (; ;) {
       if (lectures[i].id === lectures[i - 1].id) {
-        lectures[i - 1].tags.push(lectures[i].tagName);
-        lectures.splice(i, 1);
+        await lectures[i - 1].tags.push(lectures[i].tagName);
+        await lectures.splice(i, 1);
       } else {
-        lectures[i].tags = [lectures[i].tagName];
-        delete lectures[i].tagName;
+        lectures = await setTagList(lectures, i);
         i++;
       }
       if (i === lectures.length) {
         break;
       }
     }
+
+    console.log(lectures);
+    lectures.sort((lecture1, lecture2) => {
+      if (lecture1.name.toUpperCase < lecture2.name.toUpperCase) {
+        return -1;
+      }
+      if (lecture1.name.toUpperCase > lecture2.name.toUpperCase) {
+        return 1;
+      }
+      return 0;
+    });
 
     if (!order.column) {
       lectures.sort((lecture1, lecture2) => -(lecture1.tags.length - lecture2.tags.length));
