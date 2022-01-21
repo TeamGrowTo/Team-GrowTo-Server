@@ -15,23 +15,29 @@ module.exports = async (req, res) => {
       return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.OUT_OF_VALUE));
     }
     let lectures = await lectureDB.getLecturesFromIds(client, searchParams.categoryId, searchParams.skillId);
+
+    const setTagList = async (lectures, idx) => {
+      lectures[idx].tags = [lectures[idx].tagName];
+      delete lectures[idx].tagName;
+      return lectures;
+    }
+
+    lectures = await setTagList(lectures, 0);
     let i = 1;
-    lectures[0].tags = [lectures[0].tagName];
-    delete lectures[0].tagName;
 
     for (; ;) {
       if (lectures[i].id === lectures[i - 1].id) {
-        lectures[i - 1].tags.push(lectures[i].tagName);
-        lectures.splice(i, 1);
+        await lectures[i - 1].tags.push(lectures[i].tagName);
+        await lectures.splice(i, 1);
       } else {
-        lectures[i].tags = [lectures[i].tagName];
-        delete lectures[i].tagName;
+        lectures = await setTagList(lectures, i);
         i++;
       }
       if (i === lectures.length) {
         break;
       }
     }
+
     const lecturesHasTags = [];
     for (let j = 0; j < lectures.length; j++) {
       for (let name of searchParams.tagName) {
