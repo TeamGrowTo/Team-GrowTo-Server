@@ -5,7 +5,7 @@ const getAllCategories = async (client) => {
     `
     SELECT *
     FROM category
-    ORDER BY id
+    ORDER BY name
     `,
   );
   return convertSnakeToCamel.keysToCamel(rows);
