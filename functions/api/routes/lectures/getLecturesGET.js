@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
       delete lectures[idx].tagName;
       return lectures;
     }
-    console.log(lectures);
+
     lectures = await setTagList(lectures, 0);
     let i = 1;
 
@@ -44,7 +44,6 @@ module.exports = async (req, res) => {
       }
     }
 
-    console.log(lectures);
     lectures.sort((lecture1, lecture2) => {
       if (lecture1.name.toUpperCase < lecture2.name.toUpperCase) {
         return -1;
