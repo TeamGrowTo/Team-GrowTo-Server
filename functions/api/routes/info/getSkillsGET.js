@@ -15,6 +15,16 @@ module.exports = async (req, res) => {
     try {
         client = await db.connect(req);
         const skills = await skillDB.getSkillsByCategoryId(client, categoryId);
+        let i;
+        for (i = 0; i < skills.length; i++) {
+            if (skills[i].name === "기타") {
+                break
+            }
+        }
+        if (i !== skills.length) {
+            const etcSkill = await skills.splice(i, 1)[0];
+            await skills.push(etcSkill);
+        }
         res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_SKILLS_SUCCESS, skills));
     } catch (error) {
         functions.logger.error(`[ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`, `[CONTENT] ${error}`);
