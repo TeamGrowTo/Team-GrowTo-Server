@@ -14,13 +14,3 @@ const getSkillTags = async (client, skillId) => {
 };
 
 module.exports = { getSkillTags };
-
-
-/*
-(case when ASCII(SUBSTRING(tag.name,1)) = 32 then 4 
-          when ASCII(SUBSTRING(tag.name,1)) = 0 then 4
-          when (ASCII(SUBSTRING(tag.name,1)) >= 48 and ASCII(SUBSTRING(tag.name,1)) <= 57) then 3 
-          when ASCII(SUBSTRING(tag.name,1)) < 128 then 2
-          else 1 end), binary(tag.name)       
-          `,
-*/
