@@ -6,7 +6,7 @@ const getSkillTags = async (client, skillId) => {
     SELECT tag.id, tag.name FROM tag
     LEFT JOIN skill s on s.id = tag.skill_id
     WHERE skill_id = $1
-    ORDER BY tag.id
+    ORDER BY tag.name collate "ko_KR.utf8";
     `,
     [skillId],
   );
@@ -14,5 +14,3 @@ const getSkillTags = async (client, skillId) => {
 };
 
 module.exports = { getSkillTags };
-
-
