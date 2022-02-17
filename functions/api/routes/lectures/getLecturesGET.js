@@ -4,6 +4,7 @@ const statusCode = require('../../../constants/statusCode');
 const responseMessage = require('../../../constants/responseMessage');
 const db = require('../../../db/db');
 const { lectureDB, orderingDB } = require('../../../db');
+const { slack } = require('../../../others/slack');
 
 module.exports = async (req, res) => {
   let client;
@@ -26,12 +27,12 @@ module.exports = async (req, res) => {
       lectures[idx].tags = [lectures[idx].tagName];
       delete lectures[idx].tagName;
       return lectures;
-    }
+    };
 
     lectures = await setTagList(lectures, 0);
     let i = 1;
 
-    for (; ;) {
+    for (;;) {
       if (lectures[i].id === lectures[i - 1].id) {
         await lectures[i - 1].tags.push(lectures[i].tagName);
         await lectures.splice(i, 1);
@@ -60,6 +61,7 @@ module.exports = async (req, res) => {
 
     res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_LECTURES_SUCCESS, lectures));
   } catch (error) {
+    slack(req, error);
     functions.logger.error(`[ERROR] [${req.method.toUpperCase()}] ${req.originalUrl}`, `[CONTENT] ${error}`);
     console.log(error);
     res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.INTERNAL_SERVER_ERROR));
