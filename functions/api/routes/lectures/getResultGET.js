@@ -12,6 +12,8 @@ module.exports = async (req, res) => {
   try {
     client = await db.connect(req);
     const searchParams = await findDB.getSearchParams(client, findId);
+    const firstTag = searchParams.tagName[0];
+    const secondTag = searchParams.tagName[1];
     if (!searchParams) {
       return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.OUT_OF_VALUE));
     }
@@ -92,6 +94,19 @@ module.exports = async (req, res) => {
     const skill = await skillDB.getSkill(client, searchParams.skillId);
 
     lectures = lecturesHasTags;
+
+    lectures.map((lecture) => {
+      const secondTagIdx = lecture.tags.findIndex((t) => t === secondTag);
+      if (secondTagIdx >= 0) {
+        lecture.tags.splice(secondTagIdx, 1);
+        lecture.tags = [secondTag, ...lecture.tags];
+      }
+      const firstTagIdx = lecture.tags.findIndex((t) => t === firstTag);
+      if (firstTagIdx >= 0) {
+        lecture.tags.splice(firstTagIdx, 1);
+        lecture.tags = [firstTag, ...lecture.tags];
+      }
+    });
 
     res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.READ_RECOMMEND_SUCCESS, { lectures, category, skill }));
   } catch (error) {
