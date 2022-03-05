@@ -18,7 +18,7 @@ const getSkillsByCategoryId = async (client, categoryId) => {
         SELECT id, name
         FROM skill
         WHERE category_id = $1
-        ORDER BY name
+        ORDER BY ordering
         `,
         [categoryId],
     );
