@@ -13,7 +13,7 @@ const getLectureTotal = async (client) => {
 const getLecturesFromIds = async (client, categoryId, skillId) => {
   const { rows } = await client.query(
     `
-    SELECT l.id as id, l.name as name, price, time, start_year, duration, review_time, has_preview, has_optional, url, t.name as tag_name
+    SELECT l.id as id, l.name as name, price, time, start_year, duration, review_time, has_preview, has_optional, url, t.name as tag_name, site
     FROM lecture as l, tag_lecture as tl, tag as t, review_time as rt
     WHERE l.id = tl.lecture_id and tl.tag_id = t.id and l.review_time_id = rt.id
     AND l.category_id = $1 and l.skill_id = $2
@@ -28,7 +28,7 @@ const getLectures = async (client, categoryId, skillId, order) => {
   if (!order.column) {
     const { rows } = await client.query(
       `
-      SELECT l.id as id, l.name as name, price, time, start_year, duration, review_time, has_preview, has_optional, url, t.name as tag_name
+      SELECT l.id as id, l.name as name, price, time, start_year, duration, review_time, has_preview, has_optional, url, t.name as tag_name, site
       FROM lecture as l, tag_lecture as tl, tag as t, review_time as rt
       WHERE l.id = tl.lecture_id and tl.tag_id = t.id and l.review_time_id = rt.id
       AND l.category_id = $1 and l.skill_id = $2
@@ -43,7 +43,7 @@ const getLectures = async (client, categoryId, skillId, order) => {
   if (order.isDesc) {
     const sql = format(
       `
-      SELECT l.id as id, l.name as name, price, time, start_year, duration, review_time, has_preview, has_optional, url, t.name as tag_name
+      SELECT l.id as id, l.name as name, price, time, start_year, duration, review_time, has_preview, has_optional, url, t.name as tag_name, site
       FROM lecture as l, tag_lecture as tl, tag as t, review_time as rt
       WHERE l.id = tl.lecture_id and tl.tag_id = t.id and l.review_time_id = rt.id
       AND l.category_id = %s and l.skill_id = %s
@@ -55,7 +55,7 @@ const getLectures = async (client, categoryId, skillId, order) => {
   } else {
     const sql = format(
       `
-      SELECT l.id as id, l.name as name, price, time, start_year, duration, review_time, has_preview, has_optional, url, t.name as tag_name
+      SELECT l.id as id, l.name as name, price, time, start_year, duration, review_time, has_preview, has_optional, url, t.name as tag_name, site
       FROM lecture as l, tag_lecture as tl, tag as t, review_time as rt
       WHERE l.id = tl.lecture_id and tl.tag_id = t.id and l.review_time_id = rt.id
       AND l.category_id = %s and l.skill_id = %s
