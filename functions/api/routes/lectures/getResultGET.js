@@ -20,17 +20,18 @@ module.exports = async (req, res) => {
     let lectures = await lectureDB.getLecturesFromIds(client, searchParams.categoryId, searchParams.skillId);
 
     const setTagList = async (lectures, idx) => {
-      lectures[idx].tags = [lectures[idx].tagName];
+      lectures[idx].tags = [{ name: lectures[idx].tagName, type: lectures[idx].type }];
       delete lectures[idx].tagName;
+      delete lectures[idx].type;
       return lectures;
     };
 
     lectures = await setTagList(lectures, 0);
     let i = 1;
 
-    for (;;) {
+    for (; ;) {
       if (lectures[i].id === lectures[i - 1].id) {
-        await lectures[i - 1].tags.push(lectures[i].tagName);
+        await lectures[i - 1].tags.push({ name: lectures[i].tagName, type: lectures[i].type });
         await lectures.splice(i, 1);
       } else {
         lectures = await setTagList(lectures, i);
@@ -41,10 +42,19 @@ module.exports = async (req, res) => {
       }
     }
 
+    const hasName = async (lecture, targetName) => {
+      for (let tag of lecture.tags) {
+        if (tag.name === targetName) {
+          return true
+        }
+      }
+      return false
+    }
+
     const lecturesHasTags = [];
     for (let j = 0; j < lectures.length; j++) {
       for (let name of searchParams.tagName) {
-        if (lectures[j].tags.includes(name)) {
+        if (await hasName(lectures[j], name)) {
           if (lectures[j].tagScore) {
             lectures[j].tagScore += 1;
           } else {
@@ -96,15 +106,17 @@ module.exports = async (req, res) => {
     lectures = lecturesHasTags;
 
     lectures.map((lecture) => {
-      const secondTagIdx = lecture.tags.findIndex((t) => t === secondTag);
+      const secondTagIdx = lecture.tags.findIndex((t) => t.name === secondTag);
       if (secondTagIdx >= 0) {
+        tagType = lecture.tags[secondTagIdx].type
         lecture.tags.splice(secondTagIdx, 1);
-        lecture.tags = [secondTag, ...lecture.tags];
+        lecture.tags = [{ name: secondTag, type: tagType }, ...lecture.tags];
       }
-      const firstTagIdx = lecture.tags.findIndex((t) => t === firstTag);
+      const firstTagIdx = lecture.tags.findIndex((t) => t.name === firstTag);
       if (firstTagIdx >= 0) {
+        tagType = lecture.tags[firstTagIdx].type
         lecture.tags.splice(firstTagIdx, 1);
-        lecture.tags = [firstTag, ...lecture.tags];
+        lecture.tags = [{ name: firstTag, type: tagType }, ...lecture.tags];
       }
     });
 
