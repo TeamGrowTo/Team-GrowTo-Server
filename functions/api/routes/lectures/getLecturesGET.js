@@ -24,17 +24,18 @@ module.exports = async (req, res) => {
     const order = await orderingDB.getOrder(client, ordering);
     let lectures = await lectureDB.getLectures(client, categoryId, skillId, order);
     const setTagList = async (lectures, idx) => {
-      lectures[idx].tags = [lectures[idx].tagName];
+      lectures[idx].tags = [{ name: lectures[idx].tagName, type: lectures[idx].type }];
       delete lectures[idx].tagName;
+      delete lectures[idx].type;
       return lectures;
     };
 
     lectures = await setTagList(lectures, 0);
     let i = 1;
 
-    for (;;) {
+    for (; ;) {
       if (lectures[i].id === lectures[i - 1].id) {
-        await lectures[i - 1].tags.push(lectures[i].tagName);
+        await lectures[i - 1].tags.push({ name: lectures[i].tagName, type: lectures[i].type });
         await lectures.splice(i, 1);
       } else {
         lectures = await setTagList(lectures, i);
