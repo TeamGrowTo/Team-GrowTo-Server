@@ -108,13 +108,13 @@ module.exports = async (req, res) => {
     lectures.map((lecture) => {
       const secondTagIdx = lecture.tags.findIndex((t) => t.name === secondTag);
       if (secondTagIdx >= 0) {
-        tagType = lecture.tags[secondTagIdx].type
+        let tagType = lecture.tags[secondTagIdx].type
         lecture.tags.splice(secondTagIdx, 1);
         lecture.tags = [{ name: secondTag, type: tagType }, ...lecture.tags];
       }
       const firstTagIdx = lecture.tags.findIndex((t) => t.name === firstTag);
       if (firstTagIdx >= 0) {
-        tagType = lecture.tags[firstTagIdx].type
+        let tagType = lecture.tags[firstTagIdx].type
         lecture.tags.splice(firstTagIdx, 1);
         lecture.tags = [{ name: firstTag, type: tagType }, ...lecture.tags];
       }
